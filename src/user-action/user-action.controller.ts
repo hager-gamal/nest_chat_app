@@ -1,6 +1,8 @@
-import { Controller, Post, ValidationPipe, Body } from '@nestjs/common';
-import { ApiCreatedResponse, ApiBody } from '@nestjs/swagger';
+import { Controller, Post, ValidationPipe, Body, UseGuards } from '@nestjs/common';
+import { ApiCreatedResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import { userActionDTO, userActionResponse } from '../models/userAction.model';
+import { AuthGuard } from '@nestjs/passport';
+
 import { UserActionService } from './user-action.service';
 
 
@@ -11,6 +13,8 @@ export class UserActionController {
     @Post('/add')
     @ApiCreatedResponse({ description: 'userAction added' })
     @ApiBody({ type: userActionDTO })
+    @ApiBearerAuth()
+    @UseGuards(AuthGuard())
     async addMessage(
       @Body(ValidationPipe) credentials: userActionDTO) 
     :Promise<userActionResponse> {
