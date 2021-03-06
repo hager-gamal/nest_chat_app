@@ -6,12 +6,13 @@ import { SubscribeMessage,
           OnGatewayDisconnect } from '@nestjs/websockets';
 
 import { Server ,Socket } from 'socket.io';
-import { Logger } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 
 import { MessageService } from '../message/message.service';
 import { UserActionService } from '../user-action/user-action.service';
 import { userActionDTO, actionType } from '../models/userAction.model';
 import { messageDTO } from '../models/message.model';
+import { AuthGuard } from '@nestjs/passport';
 
 
 @WebSocketGateway()
@@ -42,7 +43,7 @@ export class WsGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayD
     this.useractionservice.addUserAction(useraction);
    }
 
-  
+  @UseGuards(AuthGuard())
   @SubscribeMessage('msgToServer')
     handleMessage(client: Socket, msgObject: {username:string,message:string}): void {
       const messageaction = new messageDTO();
