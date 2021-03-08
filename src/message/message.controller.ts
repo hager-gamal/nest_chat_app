@@ -1,4 +1,9 @@
-import { Controller,  Post, Body, ValidationPipe, Get, UseGuards, Req } from '@nestjs/common';
+import { Controller, 
+         Post, 
+         Body, 
+         ValidationPipe, 
+         Get, 
+         UseGuards} from '@nestjs/common';
 import { ApiCreatedResponse, 
          ApiBody, 
          ApiOkResponse, 
@@ -32,6 +37,7 @@ export class MessageController {
     }
     
     @Get('/get')
+    @ApiBearerAuth()
     @ApiOkResponse({ description: 'getting user messages' })
     @ApiUnauthorizedResponse({ description: 'un authorized' })
     async getAllMessages()

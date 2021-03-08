@@ -1,6 +1,4 @@
 import { Injectable, 
-          Post, 
-          Body, 
           ConflictException, 
           InternalServerErrorException, 
           UnauthorizedException } from '@nestjs/common';
@@ -8,9 +6,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 
-import { RegisterDTO, AuthResponse, RegisterBody, LoginDTO } from '../models/user.model';
+import { RegisterDTO, AuthResponse,LoginDTO } from '../models/user.model';
 import { UserEntity } from '../entities/user.entity';
-
 
 @Injectable()
 export class AuthService {
@@ -22,6 +19,7 @@ export class AuthService {
     
       async register(credentials: RegisterDTO): Promise<AuthResponse> {
         try {
+
           credentials._id = credentials.username;
          
           const user = this.userRepo.create(credentials);

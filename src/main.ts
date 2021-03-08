@@ -9,6 +9,7 @@ import { AppConfigService } from './config/configuration.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors();
   app.useGlobalFilters(new HttpExceptionFilter());
   // Get app config for cors settings and starting the app.
   const appConfig: AppConfigService = app.get('AppConfigService');
