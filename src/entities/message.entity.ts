@@ -7,8 +7,10 @@ import { classToPlain, Exclude } from "class-transformer";
 @Entity('messages')
 export class messageEntity extends AbstractEntity {
     
+  userName:string;
+
   @Column()
-    messageText:String;
+    messageText:string;
  
   @ManyToOne(
         type => UserEntity,
@@ -16,7 +18,6 @@ export class messageEntity extends AbstractEntity {
     )
   user:UserEntity;
   
-  username:string;
   toJSON(): messageResponse {
     return <messageResponse>classToPlain(this);
   }

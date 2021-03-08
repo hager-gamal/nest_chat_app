@@ -41,7 +41,7 @@ export class MessageService {
                 },
                 relations:['user']
             });
-            return { ...messages.map(m=>m.toJSON())}; 
+            return {...messages}; 
         }
         catch(error){
             throw new InternalServerErrorException(error.message);
