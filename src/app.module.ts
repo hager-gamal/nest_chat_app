@@ -13,6 +13,7 @@ import { UserActionModule } from './user-action/user-action.module';
 
 @Module({
   imports: [ 
+    WsModule,
    //ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       useClass: DatabaseConnectionService
@@ -21,11 +22,12 @@ import { UserActionModule } from './user-action/user-action.module';
     AuthModule,
     MessageModule,
     ConfigModule,
-    WsModule,
     UserActionModule,
  
 ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService
+  ],
 })
 export class AppModule {}

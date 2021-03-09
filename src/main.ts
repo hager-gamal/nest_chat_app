@@ -6,10 +6,11 @@ import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/http-exception.filter';
 import { AppConfigService } from './config/configuration.service';
 
-
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule,{ cors: true });
+  //app.useWebSocketAdapter(new WsAdapter(app));
   app.enableCors();
+  //app.useWebSocketAdapter(WsGateway);
   app.useGlobalFilters(new HttpExceptionFilter());
   // Get app config for cors settings and starting the app.
   const appConfig: AppConfigService = app.get('AppConfigService');
